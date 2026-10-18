@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISET Sidi Bouzid – Gestion de la scolarité</title>
+  <meta name="description" content="Application pédagogique de gestion de la scolarité : inscription en ligne, suivi de dossier et espace administration.">
+  <meta name="theme-color" content="#19519d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/images/logo-iset-sbz.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="splash" class="splash" role="presentation" aria-hidden="true">
+    <div class="splash-card">
+      <img class="splash-logo" src="logo-iset-sbz.png" alt="">
+      <h2>Gestion de la scolarité</h2>
+      <p>Institut Supérieur des Études Technologiques de Sidi Bouzid</p>
+      <div class="splash-bar"><span></span></div>
+    </div>
+  </div>
+  <noscript><p class="info" style="padding:1rem">Cette application nécessite JavaScript.</p></noscript>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img class="brand-logo" src="assets/images/logo-iset-sbz.png" alt="Logo de l'ISET Sidi Bouzid">
+        <span class="brand-sub">Gestion de la scolarité</span>
+      </div>
+      <nav aria-label="Navigation principale">
+        <button type="button" class="nav-link" data-view="form" data-role="student"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg><span>Inscription</span></button>
+        <button type="button" class="nav-link" data-view="track" data-role="student"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Suivre mon dossier</span></button>
+        <button type="button" class="nav-link" data-view="login" data-role="student"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Administration</span></button>
+        <button type="button" class="nav-link" data-view="dashboard" data-role="admin"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Tableau de bord</span></button>
+        <button type="button" class="nav-link" data-view="students" data-role="admin"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg><span>Dossiers</span></button>
+        <button type="button" class="nav-link" data-view="form" data-role="admin"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg><span>Nouvelle inscription</span></button>
+        <button type="button" class="nav-link" data-view="contact" data-role="admin"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Contact</span></button>
+        <button type="button" class="nav-link" id="logout" data-role="admin"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Déconnexion</span></button>
+      </nav>
+      <div class="role-chip"><i></i><span id="roleChip">Espace étudiant</span></div>
+    </aside>
+
+    <main class="main" id="main" tabindex="-1">
+      <header class="topbar">
+        <button type="button" id="menuToggle" class="btn btn-secondary menu-toggle" aria-label="Ouvrir le menu">Menu</button>
+        <h1 id="pageTitle">Tableau de bord</h1>
+        <div class="demo-actions">
+          <button type="button" id="exportCsv" class="btn btn-secondary" data-role="admin">Exporter en CSV</button>
+          <button type="button" id="clearAll" class="btn btn-danger-outline" data-role="admin">Vider les données</button>
+        </div>
+      </header>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+      <!-- Dashboard -->
+      <section id="view-dashboard" class="view" aria-labelledby="pageTitle">
+        <div class="cards">
+          <article class="card">
+            <h2>Total des étudiants</h2>
+            <p class="big" id="statTotal">0</p>
+            <p class="muted" id="statPending"></p>
+          </article>
+          <article class="card">
+            <h2>Par année d'étude</h2>
+            <ul class="stat-list" id="statLevels"></ul>
+          </article>
+          <article class="card">
+            <h2>Par département</h2>
+            <ul class="stat-list" id="statFields"></ul>
+          </article>
+          <article class="card">
+            <h2>Par statut</h2>
+            <ul class="stat-list" id="statStatus"></ul>
+          </article>
+        </div>
+        <article class="card">
+          <h2>Derniers ajouts</h2>
+          <ul class="stat-list" id="recentList"></ul>
+        </article>
+              </section>
+
+      <!-- Student list -->
+      <section id="view-students" class="view" hidden>
+        <div class="toolbar">
+          <div class="field">
+            <label for="search" class="sr-only">Rechercher</label>
+            <input type="search" id="search" placeholder="Rechercher par nom, CIN, email ou n° d'inscription">
+          </div>
+          <div class="field">
+            <label for="filterLevel" class="sr-only">Année d'étude</label>
+            <select id="filterLevel"><option value="">Toutes les années d'étude</option></select>
+          </div>
+          <div class="field">
+            <label for="filterDepartment" class="sr-only">Département</label>
+            <select id="filterDepartment"><option value="">Tous les départements</option></select>
+          </div>
+          <div class="field">
+            <label for="sort" class="sr-only">Trier par</label>
+            <select id="sort">
+              <option value="date-desc">Inscription : récente d'abord</option>
+              <option value="date-asc">Inscription : ancienne d'abord</option>
+              <option value="name-asc">Nom : A → Z</option>
+              <option value="name-desc">Nom : Z → A</option>
+            </select>
+          </div>
+          <button type="button" id="resetFilters" class="btn btn-secondary">Réinitialiser</button>
+        </div>
+
+        <div class="card table-card">
+          <div id="tableWrap" class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">N°</th><th scope="col">Nom</th><th scope="col">CIN</th>
+                  <th scope="col">Département</th><th scope="col">Niveau</th><th scope="col">Pièces</th>
+                  <th scope="col">Statut</th><th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentRows"></tbody>
+            </table>
+          </div>
+          <div id="emptyState" class="empty" hidden>
+            <p id="emptyText"></p>
+          </div>
+          <div id="pagination" class="pagination" hidden>
+            <button type="button" id="prevPage" class="btn btn-secondary btn-sm">Précédent</button>
+            <span id="pageInfo"></span>
+            <button type="button" id="nextPage" class="btn btn-secondary btn-sm">Suivant</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add / edit form -->
+      <section id="view-form" class="view" hidden>
+        <div class="hero" data-role="student">
+          <h2>Bienvenue à l'ISET Sidi Bouzid</h2>
+          <p>Inscrivez-vous en ligne en quelques minutes, puis suivez l'avancement de votre dossier.</p>
+          <ol class="steps">
+            <li>Remplissez le formulaire</li>
+            <li>Fournissez vos pièces à la scolarité</li>
+            <li>Suivez votre dossier en ligne</li>
+          </ol>
+          <a class="btn btn-accent" href="#lastName">Commencer mon inscription</a>
+        </div>
+        <div id="submitResult" class="card notice" role="status" hidden></div>
+        <form id="studentForm" class="card" novalidate>
+          <h2 id="formTitle">Nouvelle inscription</h2>
+          <p class="info" id="docsHint" data-role="student"></p>
+          <div class="form-grid">
+            <h3 class="form-section">Identité</h3>
+            <div class="field">
+              <label for="lastName">Nom *</label>
+              <input type="text" id="lastName" autocomplete="off" required>
+              <span class="error" id="err-lastName"></span>
+            </div>
+            <div class="field">
+              <label for="firstName">Prénom *</label>
+              <input type="text" id="firstName" autocomplete="off" required>
+              <span class="error" id="err-firstName"></span>
+            </div>
+            <div class="field">
+              <label for="cin">CIN (8 chiffres) *</label>
+              <input type="text" id="cin" inputmode="numeric" maxlength="8" autocomplete="off" required>
+              <span class="error" id="err-cin"></span>
+            </div>
+            <div class="field">
+              <label for="birthDate">Date de naissance *</label>
+              <input type="date" id="birthDate" required>
+              <span class="error" id="err-birthDate"></span>
+            </div>
+            <h3 class="form-section">Contact</h3>
+            <div class="field">
+              <label for="email">Email *</label>
+              <input type="email" id="email" autocomplete="off" required>
+              <span class="error" id="err-email"></span>
+            </div>
+            <div class="field">
+              <label for="phone">Téléphone</label>
+              <input type="tel" id="phone" placeholder="ex. 20 123 456" autocomplete="off">
+              <span class="error" id="err-phone"></span>
+            </div>
+            <h3 class="form-section">Formation</h3>
+            <div class="field">
+              <label for="academicYear">Année universitaire *</label>
+              <select id="academicYear" required><option value="">Choisir…</option></select>
+              <span class="error" id="err-academicYear"></span>
+            </div>
+            <div class="field">
+              <label for="department">Département *</label>
+              <select id="department" required><option value="">Choisir…</option></select>
+              <span class="error" id="err-department"></span>
+            </div>
+            <div class="field">
+              <label for="program">Parcours / spécialité</label>
+              <input type="text" id="program" list="programs" placeholder="ex. MDW" autocomplete="off">
+              <span class="error" id="err-program"></span>
+            </div>
+            <div class="field">
+              <label for="level">Année d'étude *</label>
+              <select id="level" required><option value="">Choisir…</option></select>
+              <span class="error" id="err-level"></span>
+            </div>
+            <h3 class="form-section" data-role="admin">Suivi administratif</h3>
+            <div class="field" data-role="admin">
+              <label for="studentId">Numéro d'inscription (généré)</label>
+              <input type="text" id="studentId" readonly>
+            </div>
+            <div class="field" data-role="admin">
+              <label for="status">Statut du dossier *</label>
+              <select id="status" required><option value="">Choisir…</option></select>
+              <span class="error" id="err-status"></span>
+            </div>
+            <div class="field" data-role="admin">
+              <label for="enrollmentDate">Date d'inscription *</label>
+              <input type="date" id="enrollmentDate" required>
+              <span class="error" id="err-enrollmentDate"></span>
+            </div>
+            <fieldset class="field wide docs-field" data-role="admin">
+              <legend>Pièces reçues</legend>
+              <div id="docsBox" class="docs"></div>
+            </fieldset>
+            <datalist id="programs"><option value="MDW"><option value="DSI"><option value="RSI"></datalist>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter</button>
+            <button type="button" id="cancelEdit" class="btn btn-secondary" hidden>Annuler</button>
+          </div>
+        </form>
+      </section>
+      <!-- Accès administrateur -->
+      <section id="view-login" class="view" hidden>
+        <form id="loginForm" class="card narrow login-card" novalidate>
+          <div class="login-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <h2>Espace administration</h2>
+          <p class="info">Accès réservé au personnel de la scolarité.</p>
+          <div class="field">
+            <label for="adminCode">Code administrateur</label>
+            <input type="password" id="adminCode" autocomplete="off">
+            <span class="error" id="err-adminCode"></span>
+          </div>
+          <div class="form-actions"><button type="submit" class="btn btn-primary">Se connecter</button></div>
+          <details class="demo-hint">
+            <summary>Accès de démonstration</summary>
+            <p>Code : <strong>admin2026</strong>. Ce code est symbolique (visible dans <code>script.js</code>) : il ne protège aucune donnée.</p>
+          </details>
+        </form>
+      </section>
+
+      <!-- Suivi du dossier (étudiant) -->
+      <section id="view-track" class="view" hidden>
+        <form id="trackForm" class="card narrow" novalidate>
+          <h2>Suivre mon dossier</h2>
+          <div class="field">
+            <label for="trackId">Numéro d'inscription</label>
+            <input type="text" id="trackId" placeholder="ex. SBZ-0001" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="trackCin">CIN</label>
+            <input type="text" id="trackCin" inputmode="numeric" maxlength="8" autocomplete="off">
+          </div>
+          <span class="error" id="err-track"></span>
+          <div class="form-actions"><button type="submit" class="btn btn-primary">Consulter</button></div>
+        </form>
+        <article id="trackResult" class="card narrow" hidden></article>
+      </section>
+
+      <!-- Contact : l'administrateur écrit à un étudiant -->
+      <section id="view-contact" class="view" hidden>
+        <form id="contactForm" class="card" novalidate>
+          <h2>Écrire à un étudiant</h2>
+          <p class="info">L'application n'envoie pas d'email toute seule : choisissez comment l'envoyer (messagerie du système, Gmail dans le navigateur ou copie du message). Vous cliquez ensuite sur Envoyer vous-même.</p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="contactStudent">Étudiant *</label>
+              <select id="contactStudent"><option value="">Choisir…</option></select>
+              <span class="error" id="err-contactStudent"></span>
+            </div>
+            <div class="field">
+              <label for="contactReason">Motif</label>
+              <select id="contactReason"></select>
+            </div>
+            <div class="field wide">
+              <label for="contactSubject">Objet *</label>
+              <input type="text" id="contactSubject">
+              <span class="error" id="err-contactSubject"></span>
+            </div>
+            <div class="field wide">
+              <label for="contactBody">Message *</label>
+              <textarea id="contactBody" rows="9"></textarea>
+              <span class="error" id="err-contactBody"></span>
+            </div>
+          </div>
+          <label class="check"><input type="checkbox" id="contactMark" checked> Marquer le dossier « À corriger »</label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Ouvrir dans ma messagerie</button>
+            <button type="button" id="openGmail" class="btn btn-secondary">Ouvrir avec Gmail</button>
+            <button type="button" id="copyMessage" class="btn btn-secondary">Copier le message</button>
+          </div>
+        </form>
+        <article class="card">
+          <h2>Historique des messages préparés</h2>
+          <ul class="stat-list" id="messageList"></ul>
+        </article>
+      </section>
+      <footer class="footer">Projet pédagogique non officiel inspiré de l'ISET Sidi Bouzid. Les données sont enregistrées dans votre navigateur (LocalStorage) : n'y saisissez jamais de vraies données personnelles.</footer>
+    </main>
+  </div>
+
+  <!-- Confirmation dialog -->
+  <dialog id="confirmDialog" aria-labelledby="confirmMessage">
+    <form method="dialog">
+      <p id="confirmMessage"></p>
+      <div class="dialog-actions">
+        <button type="submit" value="cancel" class="btn btn-secondary">Annuler</button>
+        <button type="submit" value="ok" class="btn btn-danger">Confirmer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="printArea" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
