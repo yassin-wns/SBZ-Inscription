@@ -1,4 +1,4 @@
-## Résumé – Student Management System
+Student Management System
 
 Student Management System est une application web de gestion des étudiants inspirée de l’ISET de Sidi Bouzid, développée avec HTML5, CSS3 et JavaScript, sans framework ni backend.
 
